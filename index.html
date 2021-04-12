@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buku Tamu</title>
+    <link rel="stylesheet" href="bukuTamu.css">
+</head>
+<body onload = "tampilHasil()">
+    <!-- Membuat Header dan Navigation Bar -->
+    <header>
+        <div class ="header-logo">
+            Landboard
+        </div>
+        <div class="header-nav">
+            <ul>
+                <li>Tentang</li>
+                <li>Daftar Tamu</li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Membuat Bagian Banner -->
+    <main>
+        <div class = "main-container">
+            <h1>HALLO PARA TAMU<span>.</span></h1>
+            <h2>Ayo Daftarkan Dirimu</h2>
+        </div>
+        <!-- Membuat Bagian Content -->
+        <div class="contents">
+            <h3 class="section-title">Daftar Tamu</h3>
+            <h1> Masukkan Data Diri </h1>
+            <form onsubmit="simpanHasil()">
+                <input type="text" name="" id="nama" placeholder="Masukkan Nama Anda"><br>
+                <input type="text" name="" id="email" placeholder="Masukkan Email Anda"><br>
+
+                <textarea id="pesan" placeholder="Masukkan Pesan Anda"></textarea><br>
+
+                <button type ="submit" class = "contact-submit2"> SIMPAN </button><br><br>
+
+                
+            </form>
+
+            <h2> DAFTAR BUKU TAMU</h2><br>
+            <!--<div id = "daftar"></div> -->
+            <table class = "table-tes" , border = "1" width = "600">
+                <tr height = "30px">
+                    <td>Nama</td>
+                    <td>Email</td>
+                    <td>Pesan</td>
+                </tr>
+            </table>
+            <script>
+                let hasil = [];
+                const simpanHasil = () => {
+                    let nama = document.getElementById("nama").value;
+                    let email = document.getElementById("email").value;
+                    let pesan = document.getElementById("pesan").value;
+
+                    let mhs = {nama: nama, email: email, pesan: pesan};
+                    let hasillama = localStorage.getItem("hasil");
+
+                    if(hasillama != null){
+                        hasil = JSON.parse(hasillama);
+                    }
+
+                    hasil.push(mhs);
+                    localStorage.setItem("hasil", JSON.stringify(hasil));
+
+                };
+
+                const tampilHasil = ()=>{
+                    //let daftar = document.getElementById("daftar");
+                    let table = document.getElementsByTagName("table")[0];
+
+                    let datahasil = localStorage.getItem("hasil");
+                    if(datahasil != null){
+                        datahasil = JSON.parse(datahasil);
+                        console.log(datahasil);
+                        datahasil.forEach(element => {
+                            let row = table.insertRow();
+                            let col1 = row.insertCell(0);
+                            let col2 = row.insertCell(1);
+                            let col3 = row.insertCell(2);
+
+                            col1.innerHTML = element.nama;
+                            col2.innerHTML = element.email;
+                            col3.innerHTML = element.pesan;
+                        });
+                    }
+
+                };
+            </script>
+            
+        </div>
+    </main>
+
+    <!-- Membuat Bagian Footer -->
+    <footer>
+        <div class="footer-logo">Landboard</div>
+        <div class="footer-nav">
+            <ul>
+                <li>Tentang</li>
+                <li>Daftar Tamu</li>
+
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>
